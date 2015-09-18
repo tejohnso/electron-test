@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
- ./node_modules/.bin/electron-packager . interfaces --platform=all --arch=all --version=0.33.0 --ignore=".git|node_modules|builds" --out=builds --overwrite
+ ./node_modules/.bin/electron-packager . interfaces --platform=linux,win32 --arch=all --version=0.33.0 --ignore=".git|node_modules|builds" --out=builds --overwrite
+ cd builds
+ rm -f *.zip
+ zip -r interfaces-win-64.zip interfaces-win32-x64
+ zip -r interfaces-win-32.zip interfaces-win32-ia32
+ zip -r interfaces-lnx-64.zip interfaces-linux-x64
+ zip -r interfaces-lnx-32.zip interfaces-linux-ia32
