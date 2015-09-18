@@ -20,3 +20,5 @@ app.on("ready", ()=>{
     mainWindow = null;
   });
 });
+
+app.on("error", (err)=>{console.dir(err);});

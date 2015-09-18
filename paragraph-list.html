@@ -1,0 +1,48 @@
+<template>
+  <div>
+  </div>
+</template>
+
+<script>
+(function() {
+  var thisImportDoc = document.currentScript.ownerDocument,
+  shadowRoot,
+  proto = Object.create(HTMLElement.prototype);
+
+  proto.createdCallback = function() {
+    shadowRoot = this.createShadowRoot();
+    setUpShadowRoot();
+  };
+
+  proto.reset = function() {
+    if (!shadowRoot) {return;}
+    shadowRoot.querySelector("div").remove();
+    setUpShadowRoot();
+  };
+
+  function setUpShadowRoot() {
+    var template = thisImportDoc.querySelector("template"),
+    templateClone = document.importNode(template.content, true);
+    shadowRoot.appendChild(templateClone);
+  };
+
+  proto.setContents = function(contents) {
+    if (!Array.isArray(contents)) {return;}
+    var div = document.createElement("div");
+
+    function addP(content) {
+      var p = document.createElement("p");
+      p.innerHTML = "" + content;
+      div.appendChild(p);
+    }
+
+    contents.forEach((val)=>{
+      addP(val);
+    });
+
+    shadowRoot.replaceChild(div, shadowRoot.querySelector("div"));
+  };
+
+  document.registerElement("paragraph-list", {prototype: proto});
+}());
+</script>
