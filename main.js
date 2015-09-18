@@ -1,10 +1,16 @@
-var app = require("app");
-var BrowserWindow = require("browser-window")
+var app = require("app"),
+ipc = require("ipc"),
+BrowserWindow = require("browser-window"),
+interfaces = require("./interfaces.js");
 
 app.on("window-all-closed", ()=>{
   if (process.platform != "darwin") {
     app.quit();
   }
+});
+
+ipc.on("interfaces-request", (event)=>{
+  event.sender.send("interfaces-response", interfaces());
 });
 
 app.on("ready", ()=>{
