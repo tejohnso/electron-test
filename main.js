@@ -14,7 +14,20 @@ ipc.on("interfaces-request", (event)=>{
 });
 
 app.on("ready", ()=>{
-  mainWindow = new BrowserWindow({width: 300, height: 300});
+  mainWindow = new BrowserWindow(
+  {
+    "width": 300,
+    "height": 300,
+    "center": true,
+    "fullscreen": false,
+    "skip-taskbar": true,
+    "frame": false,
+    "web-preferences": {
+      "node-integration": false,
+      "preload": __dirname + "/main-onload.js",
+      "web-security": false
+    }
+  });
   mainWindow.loadUrl("file://" + __dirname + "/main.html");
   mainWindow.on("closed", ()=>{
     mainWindow = null;
