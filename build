@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ ./node_modules/.bin/electron-packager . interfaces --platform=all --arch=all --version=0.33.0 --ignore=".git|node_modules|builds" --out=builds --overwrite
